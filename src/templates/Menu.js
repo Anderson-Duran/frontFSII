@@ -14,7 +14,7 @@ export default function Menu(props) {
         backgroundColor: '#f0f0f0',
         padding: '10px',
         fontWeight: 'bolder',
-      };
+    };
 
     return (
         <Navbar style={navbarStyle} bg="black" variant="dark" expand="lg">
@@ -26,7 +26,7 @@ export default function Menu(props) {
                     <Nav className="me-auto">
                         <NavDropdown title="CADASTROS" id="basic-nav-dropdown">
                             <LinkContainer to="/cadastroPacientes"><NavDropdown.Item><strong>PACIENTES</strong></NavDropdown.Item></LinkContainer>
-
+                            <LinkContainer to={"/cadastroMedicacoes"}><NavDropdown.Item><strong>MEDICAMENTOS</strong></NavDropdown.Item></LinkContainer>
                             <LinkContainer to="/cadastroTurma"><NavDropdown.Item><strong>TURMAS</strong></NavDropdown.Item></LinkContainer>
                         </NavDropdown>
                     </Nav>

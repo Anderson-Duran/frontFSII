@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import ReactInputMask from "react-input-mask";
 import React from "react";
+import { PacientsContext } from "../contextos/pacientsContext";
+import { urlBase } from "../assets/definicoes";
 
 
 
@@ -15,32 +17,63 @@ const boxcadall_style = {
 export default function FormPaciente(props) {
 
 
-    const [pacient, setPacient] = useState(
-        {
-            cpf: "",
-            name: "",
-            responsable: "",
-            sex: "",
-            birthDate: "",
-            zipCode: "",
-            address: "",
-            neighborhood: "",
-            city: "",
-            state: "",
-            phone: ""
-        }
-    );
-
+    const [pacient, setPacient] = useState(props.pacientEditing);
     const [validated, setValidate] = useState(false);
+    const { updatingBD, setUpdatingBD } = useContext(PacientsContext);
+    const myHeaders = new Headers();
+    myHeaders.append("Content-type", "application/json")
+
+
 
     const handleSubmit = (event) => {
+
         const form = event.currentTarget;
+
         if (form.checkValidity() === true) {
-            let pacients = props.listPacients
-            pacients.push(pacient);
-            props.setPacients(pacients);
-            props.changeScreen(true);
-            setValidate(false);
+
+            if (props.editionMode === false) {
+                fetch(urlBase, {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: JSON.stringify(pacient)
+                }).then(res => res.json())
+                    .then(result => {
+                        window.alert(result.message);
+                        setUpdatingBD(!updatingBD)
+                        props.listPacients.push(pacient)
+                        setTimeout(() => { props.changeScreen(true); }, 500)
+                        setValidate(false);
+                    })
+
+            }
+            else {
+
+                fetch(urlBase, {
+                    method: "PUT",
+                    headers: myHeaders,
+                    body: JSON.stringify(pacient)
+                }).then(res => res.json())
+                    .then(result => {
+                        if (result.status === true) {
+                            setUpdatingBD(!updatingBD);
+                            window.alert(result.message);
+                            const updatedList = props.listPacients.filter(element => element.cpf !== pacient.cpf);
+                            updatedList.push(pacient);
+                            props.setListPacients(updatedList);
+                            props.changeScreen(true)
+                            setValidate(false);
+                            props.setEditionMode(false);
+                            props.setPacientEditing({})
+                        }
+                        else {
+                            window.alert(result.message);
+                            props.changeScreen(true)
+                            props.setEditionMode(false)
+                            props.setPacientEditing({})
+                        }
+                    })
+
+            }
         }
         else {
             setValidate(true);
@@ -51,7 +84,6 @@ export default function FormPaciente(props) {
     };
 
 
-
     function handleChange(event) {
         const element = document.getElementById(`${event.target.id}`);
         setPacient({ ...pacient, [element.id]: element.value });
@@ -60,7 +92,7 @@ export default function FormPaciente(props) {
 
     function tryGetAddress() {
         let execute = true
-        while (execute){
+        while (execute) {
             console.log(pacient.zipCode)
             if (pacient.zipCode.length === 9) {
                 getAddress(pacient.zipCode);
@@ -120,6 +152,7 @@ export default function FormPaciente(props) {
                             <Form.Label>CPF</Form.Label>
                             <ReactInputMask
                                 mask={'999.999.999-99'}
+                                disabled={props.editionMode ? true : false}
                                 value={pacient.cpf}
                                 onChange={handleChange}
                             >
@@ -127,6 +160,7 @@ export default function FormPaciente(props) {
                                     type="text"
                                     placeholder="000.000.000-00"
                                     minLength={14}
+                                    disabled={props.editionMode ? true : false}
                                     required
                                     {...inputProps}
                                 />
@@ -155,7 +189,7 @@ export default function FormPaciente(props) {
                                 onChange={handleChange}
                                 value={pacient.sex}
                             >
-                                <option selected value={''}>Escolha o gênero</option>
+                                <option defaultValue={''}>Escolha o gênero</option>
                                 <option value='Masculino'>Masculino</option>
                                 <option value='Feminino'>Feminino</option>
 
@@ -259,7 +293,7 @@ export default function FormPaciente(props) {
                                 onChange={handleChange}
                                 value={pacient.state}
                             >
-                                <option value="">Selecione</option>
+                                <option value={null}>Selecione</option>
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
                                 <option value="AP">Amapá</option>
@@ -315,8 +349,12 @@ export default function FormPaciente(props) {
                 <hr />
 
                 <Row as={Col} className="m-4 justify-content-end" md={6}>
-                    <Button style={{width:'6rem', marginRight:'4px'}} onClick={props.changeScreen}>Voltar</Button>
-                    <Button style={{width:'6rem'}} type="submit">Gravar</Button>
+                    <Button style={{ width: '6rem', marginRight: '4px' }} onClick={() => {
+                        props.changeScreen();
+                        props.setEditionMode(false);
+                        props.setPacientEditing({});
+                    }}>Voltar</Button>
+                    <Button style={{ width: '6rem' }} type="submit">{props.editionMode ? 'Atualizar' : 'Gravar'}</Button>
                 </Row>
 
             </Form >

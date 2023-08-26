@@ -2,22 +2,58 @@ import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 import { Row, Container, Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { urlBase } from '../assets/definicoes';
+import ModalCustom from '../templates/modal/ModalCustom.jsx';
+import '../templates/modal/style.css'
+import TableMedicines from './TabelaMedicamentos';
+
 
 
 function TablePacients(props) {
 
-    const [listPacients, setListPacients] = useState(props.listPacientsParams)
 
-    function deletePacient(cpf) {
-        const updatedList = props.listPacientsParams.filter((pacient) => pacient.cpf !== cpf);
-        props.setPacients(updatedList);
-        setListPacients(updatedList);
+    const [localPacients, setLocalPacients] = useState(props.listPacients);
+    const [modalShow, setModalShow] = useState(false);
+    const [selectedPacient, setSelectedPacient] = useState(null);
+    const [show, setShow] = useState(false);
+
+    function formatDate(date) {
+        var newDate = new Date(date);
+        var day = newDate.getUTCDate();
+        var month = newDate.getUTCMonth() + 1;
+        var year = newDate.getFullYear();
+
+        var formatedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year.toString()}`;
+        return formatedDate
+    }
+
+    function deletePacient(pacient) {
+        fetch(urlBase, {
+            method: "DELETE",
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(pacient)
+        }).then(res => res.json())
+            .then(result => {
+                if (result.status === true) {
+                    /*          props.getData(); */
+                    props.setUpdatingBD(!props.updatingBD);
+                    window.alert(result.message);
+                    const cleaningList = localPacients.filter(el => el.cpf !== pacient.cpf)
+                    setLocalPacients(cleaningList);
+                    props.setListPacients(cleaningList);
+
+                }
+                else {
+                    window.alert(result.message);
+                }
+            })
+
     }
 
     function filterPacients(event) {
         const term = event.currentTarget.value;
-        const searchResult = props.listPacientsParams.filter(pacient => pacient.name.toLowerCase().includes(term.toLowerCase()));
-        setListPacients(searchResult);
+        const searchResult = props.listPacients.filter(pacient => pacient.name.toLowerCase().includes(term.toLowerCase()));
+        setLocalPacients(searchResult);
     }
 
 
@@ -48,14 +84,14 @@ function TablePacients(props) {
                 </thead>
                 <tbody style={{ fontSize: 13 }}>
                     {
-                        listPacients?.map((pacient, i) => {
+                        localPacients?.map((pacient, i) => {
 
                             return (
                                 <tr key={pacient.cpf}>
                                     <td>{pacient.cpf}</td>
                                     <td>{pacient.name}</td>
                                     <td>{pacient.sex}</td>
-                                    <td>{pacient.birthDate}</td>
+                                    <td>{formatDate(pacient.birthDate)}</td>
                                     <td>{pacient.responsable}</td>
                                     <td>{pacient.address}</td>
                                     <td>{pacient.neighborhood}</td>
@@ -63,7 +99,7 @@ function TablePacients(props) {
                                     <td>{pacient.state}</td>
                                     <td>{pacient.phone}</td>
                                     <td>
-                                        <Button onClick={props.changeScreen} className='btn-success'>
+                                        <Button onClick={() => { props.preparePacientToEdition(pacient) }} className='btn-success'>
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 width="16"
                                                 height="16"
@@ -78,7 +114,7 @@ function TablePacients(props) {
 
                                         <Button onClick={() => {
                                             if (window.confirm('Deseja realmente excluir este paciente?')) {
-                                                deletePacient(pacient.cpf)
+                                                deletePacient(pacient);
                                             }
                                         }
                                         } className='btn-danger'>
@@ -91,7 +127,11 @@ function TablePacients(props) {
                                                 <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                             </svg>
                                         </Button>
+                                        {'  '}
+                                        <ModalCustom pacient={pacient}/>
+
                                     </td>
+
                                 </tr>
                             );
                         })
@@ -101,8 +141,10 @@ function TablePacients(props) {
             <Container className='d-flex justify-content-end mb-3'>
                 <Button onClick={props.changeScreen}>Cadastrar</Button>
             </Container>
+
         </Container>
     );
 }
+
 
 export default TablePacients;
