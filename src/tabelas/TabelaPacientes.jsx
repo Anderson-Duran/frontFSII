@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { urlBase } from '../assets/definicoes';
 import ModalCustom from '../templates/modal/ModalCustom.jsx';
 import '../templates/modal/style.css'
-import TableMedicines from './TabelaMedicamentos';
+
 
 
 
@@ -13,9 +13,7 @@ function TablePacients(props) {
 
 
     const [localPacients, setLocalPacients] = useState(props.listPacients);
-    const [modalShow, setModalShow] = useState(false);
-    const [selectedPacient, setSelectedPacient] = useState(null);
-    const [show, setShow] = useState(false);
+  
 
     function formatDate(date) {
         var newDate = new Date(date);
