@@ -6,19 +6,30 @@ import Table from 'react-bootstrap/Table';
 function TableMedicines(props) {
 
     const url = `https://129.146.68.51/aluno5-pfsii/cadastroPaciente/medicines`;
-    /* const url = `localhost:4005/cadastroPaciente` */
     const myHeaders = new Headers();
     myHeaders.append("Content-type", "application/json");
 
     const [medicineList, setMedicineList] = useState([]);
     const [updateList, setUpdateList] = useState(false)
 
+
+    function formatDate(date) {
+        var newDate = new Date(date);
+        var day = newDate.getUTCDate();
+        var month = newDate.getUTCMonth() + 1;
+        var year = newDate.getFullYear();
+
+        var formatedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year.toString()}`;
+        return formatedDate
+    }
+
+
     async function deleteMedicine(medicação) {
 
         await fetch(url, {
             method: "DELETE",
             headers: myHeaders,
-            body: JSON.stringify({...medicação})
+            body: JSON.stringify({ ...medicação })
         }).then(response => response.json())
             .then((data) => {
                 setUpdateList(!updateList);
@@ -32,7 +43,7 @@ function TableMedicines(props) {
 
             let table = document.querySelector('#table-medicines').style
             table.display = 'none';
-            const result = await fetch(url+'/'+props.pacient.cpf, {
+            const result = await fetch(url + '/' + props.pacient.cpf, {
                 headers: myHeaders
             })
             const list = await result.json();
@@ -72,8 +83,8 @@ function TableMedicines(props) {
                                 <td>{medicine.medicineHours ? medicine.medicineHours : ''}</td>
                                 <td>{medicine.medicineHours2 ? medicine.medicineHours2 : ''}</td>
                                 <td>{medicine.medicineHours3 ? medicine.medicineHours3 : ''}</td>
-                                <td>{medicine.medicineDateStart ? medicine.medicineDateStart : ''}</td>
-                                <td>{medicine.medicineDateEnd ? medicine.medicineDateEnd : ''}</td>
+                                <td>{medicine.medicineDateStart ? formatDate(medicine.medicineDateStart) : ''}</td>
+                                <td>{medicine.medicineDateEnd ? formatDate(medicine.medicineDateEnd) : ''}</td>
                                 <td>{medicine.medicineObservation ? medicine.medicineObservation : ''}</td>
                                 <td>
                                     <Button
