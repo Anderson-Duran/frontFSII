@@ -28,7 +28,7 @@ function TablePacients(props) {
     function deletePacient(pacient) {
         fetch(urlBase, {
             method: "DELETE",
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify(pacient)
         }).then(res => res.json())
             .then(result => {

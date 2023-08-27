@@ -22,14 +22,14 @@ export default function Medicines(props) {
         console.log({ ...medicine })
         fetch(url, {
             method: "POST",
-            headers: { "Content-type": "application/json" },
+            headers: { "Content-type": "application/json", 'Access-Control-Allow-Origin': '*' },
             body: JSON.stringify({ ...medicine })
         }).then(async (response) => {
             if (response.ok) {
 
                 setMedicine({ ...props.medicineEditing });
 
-                if(!window.confirm('Deseja adicionar mais alguma medicação? Clique OK pra SIM, CANCEL pra NÃO')){
+                if (!window.confirm('Deseja adicionar mais alguma medicação? Clique OK pra SIM, CANCEL pra NÃO')) {
                     window.location.href = '/cadastroPacientes'
                 }
             }

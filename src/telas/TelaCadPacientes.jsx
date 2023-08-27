@@ -34,7 +34,7 @@ export default function TelaCadPacientes(props) {
 
         setTimeout(() => {
             setShowSpinner(false);
-        }, 700); 
+        }, 700);
 
         try {
             getData()
@@ -66,7 +66,7 @@ export default function TelaCadPacientes(props) {
     function getData() {
         fetch(urlBase, {
             method: 'GET',
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
         })
             .then((res) => {
                 return res.json();
