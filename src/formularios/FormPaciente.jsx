@@ -22,7 +22,7 @@ export default function FormPaciente(props) {
     const { updatingBD, setUpdatingBD } = useContext(PacientsContext);
     const myHeaders = new Headers();
     myHeaders.append("Content-type", "application/json");
-    myHeaders.append('Access-Control-Allow-Origin', '*');
+
 
 
 
