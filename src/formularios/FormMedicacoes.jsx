@@ -8,7 +8,7 @@ import { PacientsContext } from "../contextos/pacientsContext";
 
 export default function Medicines(props) {
 
-    const url = "https://129.146.68.51/aluno5-pfsii/cadastroPaciente/medicines"
+    const url = "https://129.146.68.51/aluno5-pfsii/cadastroRemedio/medicines"
 
     const { pacients } = useContext(PacientsContext)
     const [objectSelected, setObjectSelected] = useState('');
@@ -17,7 +17,7 @@ export default function Medicines(props) {
     })
 
     const handleSubmit = (e) => {
-        /* falta implementar */
+        
         handleBar(medicine)
         console.log({ ...medicine })
         fetch(url, {

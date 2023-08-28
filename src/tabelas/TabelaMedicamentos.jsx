@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 
 function TableMedicines(props) {
 
-    const url = `https://129.146.68.51/aluno5-pfsii/cadastroPaciente/medicines`;
+    const url = `https://129.146.68.51/aluno5-pfsii/cadastroRemedio/medicines`;
     const myHeaders = new Headers();
     myHeaders.append("Content-type", "application/json");
     myHeaders.append('Access-Control-Allow-Origin', '*');
