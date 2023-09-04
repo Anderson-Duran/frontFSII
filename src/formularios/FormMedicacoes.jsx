@@ -216,7 +216,7 @@ import SelectionBox from "../templates/selectionBox/SelectionBox.jsx";
 
 export default function Medicines(props) {
 
-    const url = "https://129.146.68.51/aluno5-pfsii/cadastroPaciente/medicines"
+    const url = "https://129.146.68.51/aluno5-pfsii/cadastroRemedio/medicines"
 
     const { pacients } = useContext(PacientsContext)
     const [objectSelected, setObjectSelected] = useState('');
