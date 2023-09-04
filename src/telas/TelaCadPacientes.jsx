@@ -66,7 +66,7 @@ export default function TelaCadPacientes(props) {
     function getData() {
         fetch(urlBase, {
             method: 'GET',
-            headers: { 'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+            headers: { 'Content-type': 'application/json' },
         })
             .then((res) => {
                 return res.json();
