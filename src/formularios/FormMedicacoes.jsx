@@ -9,7 +9,7 @@ import SelectionBox from "../templates/selectionBox/SelectionBox.jsx";
 
 export default function Medicines(props) {
 
-    const url = "https://129.146.68.51/aluno5-pfsii/cadastroRemedio/medicines"
+    const url = "https://back-fsii.vercel.app/cadastroRemedio/medicines"
 
     const { pacients } = useContext(PacientsContext)
     const [objectSelected, setObjectSelected] = useState('');
@@ -92,7 +92,7 @@ export default function Medicines(props) {
                             onChange={handleChange}
                         /> */}
                         <SelectionBox
-                            source={"https://129.146.68.51/aluno5-pfsii/listaRemedios/"}
+                            source={"https://back-fsii.vercel.app/listaRemedios/"}
                             dataKey={"id"}
                             exhibitionField={"name"}
                             selectFunction={setMedName}
