@@ -39,9 +39,15 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
             onChange={(e) => setSelectedValue(e.target.value)}
           >
             {data.map((item) => (
-              <option value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
-                onClick={(e) => { selectFunction(e.currentTarget.value) }}
-                key={item[dataKey]}>{item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}</option>
+              <option
+                value={selectedValue}
+                onClick={() => {
+                  const capValue = item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1);
+                  setSelectedValue(capValue)
+                  selectFunction(capValue)
+                }}
+                key={item[dataKey]}>{item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
+              </option>
             ))}
           </Form.Select>
         </Col>
