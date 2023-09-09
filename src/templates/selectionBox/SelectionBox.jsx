@@ -14,7 +14,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
         return self.findIndex((el) => el.name === item.name) === index
       });
 
-      let capitalizedWord = uniqueWord.map((e) => { return e.name.charAt(0) + e.name.slice(1) })
+      let capitalizedWord = uniqueWord.map((e) => { return e.charAt(0) + e.slice(1) })
       return capitalizedWord;
     }
 
