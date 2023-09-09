@@ -16,7 +16,6 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
 
 
       var capitalizedWord = uniqueWord.map((e) => {
-        console.log(e.name, e.name.charAt(0))
         return e.name.charAt(0) + e.name.slice(1)
       })
 
@@ -27,7 +26,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      let newList = filterAndCapitalizeName(result)
+      let newList = await filterAndCapitalizeName(result)
       setData(newList)
       console.log(newList, data)
     }
