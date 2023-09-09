@@ -11,14 +11,14 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
     });
   }
 
-  useEffect(() => {  
+  useEffect(() => {
 
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
       let newList = filterAndCapitalizeName(result)
       setData(newList)
-      
+
     }
 
     fetchData()
@@ -39,9 +39,9 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
             onChange={(e) => setSelectedValue(e.target.value)}
           >
             {data.map((item) => (
-              <option value={item[exhibitionField]}
-                onClick={() => { selectFunction(item[exhibitionField]) }}
-                key={item[dataKey]}>{item[exhibitionField]}</option>
+              <option value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
+                onClick={() => { selectFunction(value) }}
+                key={item[dataKey]}>{value}</option>
             ))}
           </Form.Select>
         </Col>
