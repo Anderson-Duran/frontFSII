@@ -26,8 +26,8 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      let newList = filterAndCapitalizeName(result)
-      setData(newList)
+      let newList = await filterAndCapitalizeName(result)
+      await setData(newList)
       console.log(newList)
     }
 
