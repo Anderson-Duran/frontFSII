@@ -42,9 +42,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
               <option
                 value={selectedValue}
                 onClick={() => {
-                  const capValue = item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1);
-                  setSelectedValue(capValue)
-                  selectFunction(capValue)
+                  selectFunction(selectedValue)
                 }}
                 key={item[dataKey]}>{item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
               </option>
