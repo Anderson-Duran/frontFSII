@@ -5,45 +5,32 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
   const [selectedValue, setSelectedValue] = useState("");
   const [data, setData] = useState([]);
 
+  function filterAndCapitalizeName(array) {
+    let uniqueWord = array.filter((item, index, self) => {
+      return self.findIndex((el) => el.name === item.name) === index
+    });
 
 
-  useEffect(() => {
-
-    /* function filterAndCapitalizeName(array) {
-      let uniqueWord = array.filter((item, index, self) => {
-        return self.findIndex((el) => el.name === item.name) === index
-      });
+    var capitalizedWord = uniqueWord.map((e) => {
+      return e.name.charAt(0).toUpperCase() + e.name.slice(1)
+    })
 
 
-      var capitalizedWord = uniqueWord.map((e) => {
-        return e.name.charAt(0).toUpperCase() + e.name.slice(1)
-      })
+    return capitalizedWord;
+  }
 
-
-      return capitalizedWord;
-    } */
-    function filterAndCapitalizeName(array) {
-      const uniqueAndCapitalizedWords = array.reduce((uniqueWords, item) => {
-        const name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-        if (!uniqueWords.some((word) => word === name)) {
-          uniqueWords.push(name);
-        }
-        return uniqueWords;
-      }, []);
-
-      return uniqueAndCapitalizedWords;
-    }
+  useEffect(() => {  
 
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      let newList = filterAndCapitalizeName(result)
+      let newList = await filterAndCapitalizeName(result)
       setData(newList)
-      console.log(data)
+      
     }
 
     fetchData()
-
+    console.log(data)
   }, [source])
 
 
