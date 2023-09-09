@@ -35,7 +35,10 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
         <Col>
           <Form.Select
             value={selectedValue}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            onChange={(e) => {
+              setSelectedValue(e.target.value);
+              selectFunction(selectedValue);
+            }}
           >
             {data.map((item) => (
               <option key={item[dataKey]}>
