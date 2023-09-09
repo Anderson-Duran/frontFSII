@@ -22,7 +22,6 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
     }
 
     fetchData()
-    console.log(data)
   }, [source])
 
 
@@ -39,12 +38,8 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
             onChange={(e) => setSelectedValue(e.target.value)}
           >
             {data.map((item) => (
-              <option
-                value={selectedValue}
-                onClick={() => {
-                  selectFunction(selectedValue)
-                }}
-                key={item[dataKey]}>{item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
+              <option key={item[dataKey]}>
+                {item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
               </option>
             ))}
           </Form.Select>
