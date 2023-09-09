@@ -9,15 +9,19 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
 
   useEffect(() => {
 
-    function filterOnlyOneName(array) {
-      return array.filter((item, index, self) => { return self.findIndex((el) => el.name === item.name) === index })
+    function filterAndCapitalizeName(array) {
+      let uniqueWord = array.filter((item, index, self) => {
+        return self.findIndex((el) => el.name === item.name) === index
+      });
 
+      let capitalizedWord = uniqueWord.map((e) => { return e.name.charAt(0) + e.name.slice(1) })
+      return capitalizedWord;
     }
 
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      let newList = filterOnlyOneName(result)
+      let newList = filterAndCapitalizeName(result)
       setData(newList)
       console.log(newList, data)
     }
@@ -41,7 +45,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
           >
             {data.map((item) => (
               <option value={item[exhibitionField]}
-                onClick={()=>{selectFunction(item[exhibitionField])}}
+                onClick={() => { selectFunction(item[exhibitionField]) }}
                 key={item[dataKey]}>{item[exhibitionField]}</option>
             ))}
           </Form.Select>
