@@ -5,31 +5,31 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
   const [selectedValue, setSelectedValue] = useState("");
   const [data, setData] = useState([]);
 
+  function filterAndCapitalizeName(array) {
+    let uniqueWord = array.filter((item, index, self) => {
+      return self.findIndex((el) => el.name === item.name) === index
+    });
 
+
+    var capitalizedWord = uniqueWord.map((e) => {
+      return e.name.charAt(0).toUpperCase() + e.name.slice(1)
+    })
+
+
+    return capitalizedWord;
+  }
+
+  const fetchData = async () => {
+    let response = await fetch(source, { method: "GET" })
+    let result = await response.json();
+    let newList = await filterAndCapitalizeName(result)
+    await setData(newList)
+    console.log(data)
+  }
 
   useEffect(() => {
 
-    function filterAndCapitalizeName(array) {
-      let uniqueWord = array.filter((item, index, self) => {
-        return self.findIndex((el) => el.name === item.name) === index
-      });
-
-
-      var capitalizedWord = uniqueWord.map((e) => {
-        return e.name.charAt(0).toUpperCase() + e.name.slice(1)
-      })
-
-
-      return capitalizedWord;
-    }
-
-    const fetchData = async () => {
-      let response = await fetch(source, { method: "GET" })
-      let result = await response.json();
-      let newList = await filterAndCapitalizeName(result)
-      await setData(newList)
-      console.log(data)
-    }
+   
 
     fetchData()
 
