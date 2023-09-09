@@ -16,7 +16,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
 
 
       var capitalizedWord = uniqueWord.map((e) => {
-        return e.name.charAt(0) + e.name.slice(1)
+        return e.name.charAt(0).toUpperCase() + e.name.slice(1)
       })
 
 
