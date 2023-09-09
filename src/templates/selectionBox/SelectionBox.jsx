@@ -6,17 +6,9 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
   const [data, setData] = useState([]);
 
   function filterAndCapitalizeName(array) {
-    let uniqueWord = array.filter((item, index, self) => {
+    return array.filter((item, index, self) => {
       return self.findIndex((el) => el.name === item.name) === index
     });
-
-
-    var capitalizedWord = uniqueWord.map((e) => {
-      return e.name.charAt(0).toUpperCase() + e.name.slice(1)
-    })
-
-
-    return capitalizedWord;
   }
 
   useEffect(() => {  
