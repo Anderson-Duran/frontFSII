@@ -9,7 +9,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
 
   useEffect(() => {
 
-    function filterAndCapitalizeName(array) {
+    /* function filterAndCapitalizeName(array) {
       let uniqueWord = array.filter((item, index, self) => {
         return self.findIndex((el) => el.name === item.name) === index
       });
@@ -21,14 +21,24 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
 
 
       return capitalizedWord;
+    } */
+    function filterAndCapitalizeName(array) {
+      const uniqueAndCapitalizedWords = array.reduce((uniqueWords, item) => {
+        const name = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+        if (!uniqueWords.some((word) => word === name)) {
+          uniqueWords.push(name);
+        }
+        return uniqueWords;
+      }, []);
+
+      return uniqueAndCapitalizedWords;
     }
 
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      await setData(filterAndCapitalizeName(result));
-      /* let newList = filterAndCapitalizeName(result)
-      await setData(newList) */
+      let newList = filterAndCapitalizeName(result)
+      setData(newList)
       console.log(data)
     }
 
