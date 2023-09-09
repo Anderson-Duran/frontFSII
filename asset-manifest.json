@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/frontFSII/static/css/main.9e82864e.css",
-    "main.js": "/frontFSII/static/js/main.57767933.js",
+    "main.js": "/frontFSII/static/js/main.b6c6ab1f.js",
     "static/media/logo.png": "/frontFSII/static/media/logo.f4b49d93ba7ae4937a0f.png",
     "index.html": "/frontFSII/index.html",
     "main.9e82864e.css.map": "/frontFSII/static/css/main.9e82864e.css.map",
-    "main.57767933.js.map": "/frontFSII/static/js/main.57767933.js.map"
+    "main.b6c6ab1f.js.map": "/frontFSII/static/js/main.b6c6ab1f.js.map"
   },
   "entrypoints": [
     "static/css/main.9e82864e.css",
-    "static/js/main.57767933.js"
+    "static/js/main.b6c6ab1f.js"
   ]
 }
