@@ -41,7 +41,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
             {data.map((item) => (
               <option value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
                 onClick={() => { selectFunction(value) }}
-                key={item[dataKey]}>{value}</option>
+                key={item[dataKey]}>{item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}</option>
             ))}
           </Form.Select>
         </Col>
