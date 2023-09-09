@@ -14,17 +14,19 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
         return self.findIndex((el) => el.name === item.name) === index
       });
 
-      for (let i = 0; i <= uniqueWord.length; i++){
-        var capitalizedWord = uniqueWord.map((e) => { return e[i].charAt(0) + e[1].slice(1) })
-      }
-        
+
+      var capitalizedWord = uniqueWord.map((e) => {
+        console.log(e.name, e.name.charAt(0))
+        return e.name.charAt(0) + e.name.slice(1)
+      })
+
+
       return capitalizedWord;
     }
 
     const fetchData = async () => {
       let response = await fetch(source, { method: "GET" })
       let result = await response.json();
-      console.log('resultadoFetch', result)
       let newList = filterAndCapitalizeName(result)
       setData(newList)
       console.log(newList, data)
