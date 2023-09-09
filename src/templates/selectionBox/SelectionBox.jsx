@@ -28,7 +28,7 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
       let result = await response.json();
       let newList = await filterAndCapitalizeName(result)
       await setData(newList)
-      console.log(newList)
+      console.log(data)
     }
 
     fetchData()
