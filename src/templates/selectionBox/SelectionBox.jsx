@@ -41,7 +41,10 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
             }}
           >
             {data.map((item) => (
-              <option key={item[dataKey]}>
+              <option
+                value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
+                key={item[dataKey]}
+              >
                 {item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
               </option>
             ))}
