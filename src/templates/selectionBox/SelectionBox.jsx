@@ -44,6 +44,10 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
               <option
                 value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
                 key={item[dataKey]}
+                onChange={(e)=>{
+                  setSelectedValue(e.currentTarget.value)
+                }}
+                defaultValue={"Selecione um medicamento"}
               >
                 {item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
               </option>
