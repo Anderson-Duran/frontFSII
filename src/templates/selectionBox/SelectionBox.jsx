@@ -34,19 +34,19 @@ function SelectionBox({ source, dataKey, exhibitionField, selectFunction }) {
       <Row md={12}>
         <Col>
           <Form.Select
+            defaultValue={''}
+            required
             value={selectedValue}
             onChange={(e) => {
               setSelectedValue(e.target.value);
-              selectFunction(selectedValue);
+              selectFunction(e.target.value);
             }}
           >
+            <option value={''}>Selecione uma opção</option>
             {data.map((item) => (
               <option
                 value={item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
                 key={item[dataKey]}
-                onChange={(e)=>{
-                  setSelectedValue(e.currentTarget.value)
-                }}
                 defaultValue={"Selecione um medicamento"}
               >
                 {item[exhibitionField].charAt(0).toUpperCase() + item[exhibitionField].slice(1)}
