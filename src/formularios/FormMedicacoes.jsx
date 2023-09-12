@@ -4,12 +4,14 @@ import { Container, Form, Row, Col, FloatingLabel, Button } from "react-bootstra
 import SearchBar from "../templates/searchBar/SearchBar";
 import { PacientsContext } from "../contextos/pacientsContext";
 import SelectionBox from "../templates/selectionBox/SelectionBox.jsx";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Medicines(props) {
 
-    const url = "https://back-fsii.vercel.app/cadastroRemedio/medicines"
+    const url = "https://back-fsii.vercel.app/cadastroRemedio/medicines";
+    const navigate = useNavigate();
 
     const { pacients } = useContext(PacientsContext)
     const [objectSelected, setObjectSelected] = useState('');
@@ -32,7 +34,7 @@ export default function Medicines(props) {
                 setMedicine({ ...props.medicineEditing });
 
                 if (!window.confirm('Deseja adicionar mais alguma medicação? Clique OK pra SIM, CANCEL pra NÃO')) {
-                    window.location.href = '/cadastroPacientes'
+                    navigate('/cadastroPacientes');
                 }
             }
             return await response.json()
@@ -210,7 +212,7 @@ export default function Medicines(props) {
 
                 <Row className="mb-5 flex bg-red justify-content-end me-2">
                     <Button className="btn" style={{ width: "100px", marginRight: '15px' }} type="submit" variant="primary">Cadastrar</Button>
-                    <Button className="btn" style={{ width: "100px" }} variant="primary">Voltar</Button>
+                    <Button className="btn" style={{ width: "100px" }} onClick={() => { navigate('/') }} variant="primary">Voltar</Button>
                 </Row>
             </Form>
         </Container>
