@@ -2,13 +2,16 @@ import '../templates/modal/style.css'
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 function TableMedicines(props) {
 
     const url = `https://back-fsii.vercel.app/cadastroRemedio/medicines`;
+    const navigate = useNavigate();
     const myHeaders = new Headers();
     myHeaders.append("Content-type", "application/json");
- 
+
 
     const [medicineList, setMedicineList] = useState([]);
     const [updateList, setUpdateList] = useState(false)
@@ -98,7 +101,9 @@ function TableMedicines(props) {
                                     >Excluir
                                     </Button>
                                     {' '}
-                                    <Button>Editar</Button>
+                                    <Button onClick={() => {
+                                        navigate('/cadastroMedicacoes', { state: [medicine, props.pacient] })
+                                    }}>Editar</Button>
                                 </td>
                             </tr>
                         )

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './assets/logo.png'
-import { PacientsProvider } from '../src/contextos/pacientsContext';
+import { PacientsProvider } from './contextos/pacientsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

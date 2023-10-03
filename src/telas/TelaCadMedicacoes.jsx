@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Medicines from "../formularios/FormMedicacoes";
 import Pagina from "../templates/Pagina";
 import { Container, Alert } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 
 export default function TelaCadMedicacoes(props) {
+
+
+    const location = useLocation();
 
     const [objectSelected, setObjectSelected] = useState({})
     const [medicineEditing, setMedicineEditing] = useState({
@@ -18,7 +22,7 @@ export default function TelaCadMedicacoes(props) {
         medicineDateEnd: "",
         medicineObservation: ""
     })
-    
+
 
     return (
         <Pagina>
@@ -32,6 +36,7 @@ export default function TelaCadMedicacoes(props) {
                     medicineEditing={medicineEditing}
                     setMedicineEditing={setMedicineEditing}
                     setObject={setObjectSelected}
+                    location={location}
                 />
             </Container>
         </Pagina>
