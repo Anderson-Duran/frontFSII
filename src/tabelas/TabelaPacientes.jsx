@@ -33,7 +33,6 @@ function TablePacients(props) {
         }).then(res => res.json())
             .then(result => {
                 if (result.status === true) {
-                    /*          props.getData(); */
                     props.setUpdatingBD(!props.updatingBD);
                     window.alert(result.message);
                     const cleaningList = localPacients.filter(el => el.cpf !== pacient.cpf)
