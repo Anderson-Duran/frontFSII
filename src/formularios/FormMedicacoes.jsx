@@ -154,13 +154,19 @@ export default function Medicines(props) {
                             <Form.Label>
                                 Nome da Medicação
                             </Form.Label>
+                            {!isEditing ?
+                                <SelectionBox
+                                    source={"https://back-fsii.vercel.app/listaRemedios/"}
+                                    dataKey={"id"}
+                                    exhibitionField={"name"}
+                                    selectFunction={setMedName}
+                                /> : 
+                                <span>
+                                    <p>{props.location.state[0].medicineName}
+                                    </p>
+                                </span>
+                            }
 
-                            <SelectionBox
-                                source={"https://back-fsii.vercel.app/listaRemedios/"}
-                                dataKey={"id"}
-                                exhibitionField={"name"}
-                                selectFunction={setMedName}
-                            />
                         </Form.Group>
                         <Form.Group as={Col} md={6} controlId="medicineDosage">
                             <Form.Label>
