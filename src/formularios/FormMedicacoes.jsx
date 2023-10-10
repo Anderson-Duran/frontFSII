@@ -56,19 +56,20 @@ export default function Medicines(props) {
         console.log({ ...medicine })
 
         isEditing ?
-            (
-                fetch(url, {
-                    method: "PUT",
-                    headers: { "Content-type": "application/json" },
-                    body: JSON.stringify({ ...medicine })
-                }).then(async (response) => {
-                    if (response.ok) {
-                        setMedicine({ ...props.medicineEditing });
-                        navigate('/cadastroPacientes');
-                    }
-                    return await response.json()
-                }).then(data => console.log(data))
-            )
+            setMedicine({ ...medicine }, medicineName = props.location.state[0].medicineName)
+                (
+                    fetch(url, {
+                        method: "PUT",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({ ...medicine })
+                    }).then(async (response) => {
+                        if (response.ok) {
+                            setMedicine({ ...props.medicineEditing });
+                            navigate('/cadastroPacientes');
+                        }
+                        return await response.json()
+                    }).then(data => console.log(data))
+                )
             :
             (
                 fetch(url, {
@@ -160,11 +161,11 @@ export default function Medicines(props) {
                                     dataKey={"id"}
                                     exhibitionField={"name"}
                                     selectFunction={setMedName}
-                                /> : 
-                                <span>
-                                    <p>{props.location.state[0].medicineName}
-                                    </p>
-                                </span>
+                                /> :
+                                <p>
+                                    {props.location.state[0].medicineName}
+                                </p>
+
                             }
 
                         </Form.Group>
