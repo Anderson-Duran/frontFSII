@@ -56,7 +56,7 @@ export default function Medicines(props) {
         console.log({ ...medicine })
 
         if (isEditing) {
-            setMedicine({ ...medicine }, medicineName = props.location.state[0].medicineName);
+            setMedicine({ ...medicine }, medicine.medicineName = props.location.state[0].medicineName);
             console.log('props.location.state[0]' + props.location.state[0].medicineName)
             console.log('dados sendo editado' + medicine)
             fetch(url, {
