@@ -55,43 +55,39 @@ export default function Medicines(props) {
         handleBar(medicine)
         console.log({ ...medicine })
 
-        if (isEditing) {
-            setMedicine({ ...medicine }, medicine.medicineName = props.location.state[0].medicineName);
-            console.log('props.location.state[0]' + props.location.state[0].medicineName)
-            console.log('dados sendo editado' + medicine)
-            fetch(url, {
-                method: "PUT",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ ...medicine })
-            }).then(async (response) => {
-                if (response.ok) {
-                    setMedicine({ ...props.medicineEditing });
-                    navigate('/cadastroPacientes');
-                }
-                return await response.json()
-            }).then(data => console.log(data))
+        isEditing ?
+            (
+                fetch(url, {
+                    method: "PUT",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({ ...medicine })
+                }).then(async (response) => {
+                    if (response.ok) {
+                        setMedicine({ ...props.medicineEditing });
+                        navigate('/cadastroPacientes');
+                    }
+                    return await response.json()
+                }).then(data => console.log(data))
+            )
+            :
+            (
+                fetch(url, {
+                    method: "POST",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({ ...medicine })
+                }).then(async (response) => {
+                    if (response.ok) {
 
-        }
+                        setMedicine({ ...props.medicineEditing });
 
+                        if (!window.confirm('Deseja adicionar mais alguma medicação? Clique OK pra SIM, CANCEL pra NÃO')) {
 
-
-        fetch(url, {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({ ...medicine })
-        }).then(async (response) => {
-            if (response.ok) {
-
-                setMedicine({ ...props.medicineEditing });
-
-                if (!window.confirm('Deseja adicionar mais alguma medicação? Clique OK pra SIM, CANCEL pra NÃO')) {
-
-                    navigate('/cadastroPacientes');
-                }
-            }
-            return await response.json()
-        }).then(data => console.log(data))
-
+                            navigate('/cadastroPacientes');
+                        }
+                    }
+                    return await response.json()
+                }).then(data => console.log(data))
+            )
 
 
 
