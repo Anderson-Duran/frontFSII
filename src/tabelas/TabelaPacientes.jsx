@@ -76,7 +76,7 @@ function TablePacients(props) {
                         <th>Cidade</th>
                         <th>UF</th>
                         <th>Telefone</th>
-                        <th>Ações</th>
+                        <th id='actions'>Ações</th>
                     </tr>
                 </thead>
                 <tbody style={{ fontSize: 13 }}>
@@ -95,7 +95,7 @@ function TablePacients(props) {
                                     <td>{pacient.city}</td>
                                     <td>{pacient.state}</td>
                                     <td>{pacient.phone}</td>
-                                    <td>
+                                    <td id='btn'>
                                         <Button onClick={() => { props.preparePacientToEdition(pacient) }} className='btn-success'>
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 width="16"

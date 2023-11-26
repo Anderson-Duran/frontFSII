@@ -27,7 +27,7 @@ export default function Menu(props) {
     const {user, setUser} = useContext(AuthContext);
 
     return (
-        <Navbar style={navbarStyle} bg="black" variant="dark" expand="lg">
+        <Navbar id="menu" style={navbarStyle} bg="black" variant="dark" expand="lg">
             <Container >
                 <LinkContainer to="/home" ><Navbar.Brand><font color="white"><strong>HOME</strong></font></Navbar.Brand></LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
