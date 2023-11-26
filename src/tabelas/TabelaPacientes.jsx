@@ -139,7 +139,7 @@ function TablePacients(props) {
                     }
                 </tbody>
             </Table>
-            <Container className='d-flex justify-content-end mb-3'>
+            <Container className='d-flex justify-content-around mb-3'>
                 <Button id='btn' onClick={props.changeScreen}>Cadastrar</Button>
                 {' '}
                 <Button id='btn' onClick={print}>Imprimir</Button>
