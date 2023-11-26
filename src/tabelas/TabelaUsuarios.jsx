@@ -52,7 +52,7 @@ function TabelaUsuarios(props) {
 
   function filterUsuarios(event) {
     const term = event.currentTarget.value;
-    const searchResult = props.listUsuarios.filter((usuario) =>
+    const searchResult = props.listUsers.filter((usuario) =>
       usuario.name.toLowerCase().includes(term.toLowerCase())
     );
     setLocalUsuarios(searchResult);
