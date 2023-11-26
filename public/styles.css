@@ -13,8 +13,14 @@ img{
 }
 
 @media print{
-    #termoBusca, button, #menu, #btn, #actions, a{
+    #termoBusca, button, #menu, #btn, #actions, a, font{
         display:none;
+    }
+
+    body{
+        display:flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #table{
