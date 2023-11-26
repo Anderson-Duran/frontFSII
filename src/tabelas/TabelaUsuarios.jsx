@@ -1,26 +1,45 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Table, Button, Row, Container, Col, Form } from 'react-bootstrap';
 import { urlBase } from '../assets/definicoes';
-import ModalCustom from '../templates/modal/ModalCustom.jsx';
 import '../templates/modal/style.css';
+import { AuthContext } from '../contextos/authContext.js';
+
 
 function TabelaUsuarios(props) {
-  const [localUsuarios, setLocalUsuarios] = useState(props.listUsuarios);
+  const [localUsuarios, setLocalUsuarios] = useState(props.listUsers);
+  const { user } = useContext(AuthContext);
+
+  function getCookie() {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+
+      let cookie = cookies[i].trim();
+
+      if (cookie.startsWith(user.email + '=')) {
+        return cookie.substring(user.email.length + 1)
+      }
+    }
+
+    return null;
+  }
 
   function deleteUsuario(usuario) {
+
+    let token = getCookie();
+
     fetch(urlBase, {
       method: 'DELETE',
-      headers: { 
+      headers: {
         'Content-type': 'application/json',
-        'Authorization':`Bearer ${usuario.token}` 
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(usuario),
     })
       .then((res) => res.json())
       .then((result) => {
         if (result.status === true) {
-          props.setUpdatingBD(!props.updatingBD);
           window.alert(result.message);
           const cleaningList = localUsuarios.filter((el) => el.id !== usuario.id);
           setLocalUsuarios(cleaningList);
@@ -57,8 +76,7 @@ function TabelaUsuarios(props) {
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
-            <th>isAdmin</th>
+            <th>Administrador</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -69,8 +87,7 @@ function TabelaUsuarios(props) {
                 <td>{usuario.id}</td>
                 <td>{usuario.name}</td>
                 <td>{usuario.email}</td>
-                <td>{usuario.password}</td>
-                <td>{usuario.isAdmin}</td>
+                <td>{usuario.isAdmin ? 'Sim' : 'Não'}</td>
                 <td>
                   <Button
                     onClick={() => {
@@ -78,7 +95,7 @@ function TabelaUsuarios(props) {
                     }}
                     className="btn-success"
                   >
-                    Edit
+                    Editar
                   </Button>
                   {' '}
                   <Button
@@ -91,10 +108,10 @@ function TabelaUsuarios(props) {
                     }}
                     className="btn-danger"
                   >
-                    Delete
+                    Deletar
                   </Button>
-                  {' '}
-                  <ModalCustom usuario={usuario} />
+
+
                 </td>
               </tr>
             );
@@ -102,7 +119,7 @@ function TabelaUsuarios(props) {
         </tbody>
       </Table>
       <Container className="d-flex justify-content-end mb-3">
-        <Button onClick={props.changeScreen}>Add User</Button>
+        <Button onClick={props.changeScreen}>Cadastrar Usuário</Button>
       </Container>
     </Container>
   );

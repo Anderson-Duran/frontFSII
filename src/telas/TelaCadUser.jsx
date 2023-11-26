@@ -11,7 +11,7 @@ export default function TelaCadUser(props) {
   const [showTable, setShowTable] = useState(true);
   const [showSpinner, setShowSpinner] = useState(false);
   const [users, setUsers] = useState();
-  const [listUser, setListUsers] = useState(users);
+  const [listUser, setListUsers] = useState(null);
   const [editionMode, setEditionMode] = useState(false);
   const [excluded, setExcluded] = useState(false);
   const [userEditing, setUserEditing] = useState({
@@ -128,7 +128,7 @@ export default function TelaCadUser(props) {
         ) : showTable ? (
           <TabelaUsuarios
             changeScreen={changeValueOnClick}
-            listUser={listUser}
+            listUsers={listUser}
             setListUsers={setListUsers}
             setEditionMode={setEditionMode}
             prepareUserToEdition={prepareUserToEdition}

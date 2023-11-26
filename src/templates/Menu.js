@@ -16,6 +16,13 @@ export default function Menu(props) {
         padding: '10px',
         fontWeight: 'bolder',
     };
+    const linkStyle = {
+        border: '2px solid #0d6efd', 
+        padding: '5px 10px',
+        borderRadius: '5px',
+        color: 'white',
+        backgroundColor: '#0d6efd',
+      };
 
     const {user, setUser} = useContext(AuthContext);
 
@@ -45,7 +52,7 @@ export default function Menu(props) {
                         user.isAdmin === true?<NavbarCollapse><LinkContainer to="/cadastroUsuario"><NavDropdown.Item><strong><font color="white">GERENCIAR USUÁRIOS</font></strong></NavDropdown.Item></LinkContainer></NavbarCollapse>:''
                     }
                     <Nav>
-                        <Nav.Link href="/"><strong><font color="white">VOLTAR</font></strong></Nav.Link>
+                        <Nav.Link href="/" style={linkStyle}><strong><font color="white">SAIR</font></strong></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
