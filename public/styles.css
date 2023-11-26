@@ -13,7 +13,12 @@ img{
 }
 
 @media print{
-    .navbar, #termoBusca, button, #menu, #btn, #actions{
+    .navbar, #termoBusca, button, #menu, #btn, #actions, body{
         display:none;
+    }
+
+    #table{
+        display: block;
+        margin: 0 auto;
     }
 }
