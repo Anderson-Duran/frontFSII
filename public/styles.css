@@ -13,7 +13,7 @@ img{
 }
 
 @media print{
-    #termoBusca, button, #menu, #btn, #actions, a, font{
+    #termoBusca, button, #menu, #btn, #actions, a, .shit{
         display:none;
     }
 
@@ -23,8 +23,8 @@ img{
         align-items: center;
     }
 
-    #tablePrint{
-        margin: 0 auto !important;
-    }
-  
+    #table{
+        position: absolute;
+        left: -5rem;
+    } 
 }

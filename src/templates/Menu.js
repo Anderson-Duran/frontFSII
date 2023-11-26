@@ -29,9 +29,9 @@ export default function Menu(props) {
     return (
         <Navbar id="menu" style={navbarStyle} bg="black" variant="dark" expand="lg">
             <Container >
-                <LinkContainer to="/home" ><Navbar.Brand><font color="white"><strong>HOME</strong></font></Navbar.Brand></LinkContainer>
+                <LinkContainer to="/home" ><Navbar.Brand><font color="white"><strong className="shit">HOME</strong></font></Navbar.Brand></LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Nav><font color="black">------------------------</font></Nav>
+                <Nav><font className="shit" color="black">------------------------</font></Nav>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavDropdown title="CADASTROS" id="basic-nav-dropdown">
