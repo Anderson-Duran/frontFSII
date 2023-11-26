@@ -23,5 +23,8 @@ img{
         align-items: center;
     }
 
+    #tablePrint{
+        margin: 0 auto !important;
+    }
   
 }

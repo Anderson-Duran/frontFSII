@@ -67,7 +67,7 @@ function TablePacients(props) {
                 </Col>
 
             </Row>
-            <Table striped bordered hover className='text-center '>
+            <Table id='tablePrint' striped bordered hover className='text-center '>
                 <thead>
                     <tr>
                         <th>CPF</th>
