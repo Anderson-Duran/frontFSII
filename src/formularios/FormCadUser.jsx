@@ -137,6 +137,9 @@ const FormCadUser = (props) => {
       <button type="submit" style={buttonStyle}>
         Cadastrar
       </button>
+      <button style={buttonStyle} onClick={props.changeScreen}>
+        Voltar
+      </button>
     </form>
   );
 };
