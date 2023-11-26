@@ -13,6 +13,10 @@ function TablePacients(props) {
 
 
     const [localPacients, setLocalPacients] = useState(props.listPacients);
+
+    function print(){
+        window.print();
+    }
   
 
     function formatDate(date) {
@@ -137,6 +141,7 @@ function TablePacients(props) {
             </Table>
             <Container className='d-flex justify-content-end mb-3'>
                 <Button onClick={props.changeScreen}>Cadastrar</Button>
+                <Button onClick={print}>Imprimir</Button>
             </Container>
 
         </Container>
