@@ -91,7 +91,7 @@ function TabelaUsuarios(props) {
                 <td>
                   <Button
                     onClick={() => {
-                      props.prepareUsuarioToEdition(usuario);
+                      props.prepareUserToEdition(usuario);
                     }}
                     className="btn-success"
                   >
