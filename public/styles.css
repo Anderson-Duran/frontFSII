@@ -13,8 +13,13 @@ img{
 }
 
 @media print{
-    #termoBusca, button, #menu, #btn, #actions, a, .shit{
-        display:none;
+
+    *{
+        font-size: 12px!important;
+    }
+
+    #termoBusca, button, #menu, #btn, #actions, a, .shit, .btn{
+        display:none !important;
     }
 
     body{
@@ -24,7 +29,7 @@ img{
     }
 
     #table{
+        left: 1.5rem;
         position: absolute;
-        left: -5rem;
     } 
 }

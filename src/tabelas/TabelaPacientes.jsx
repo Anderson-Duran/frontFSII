@@ -4,6 +4,7 @@ import { Row, Container, Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { urlBase } from '../assets/definicoes';
 import ModalCustom from '../templates/modal/ModalCustom.jsx';
+import HelpModal from '../templates/help/HelpModal.jsx';
 import '../templates/modal/style.css'
 
 
@@ -12,12 +13,22 @@ import '../templates/modal/style.css'
 function TablePacients(props) {
 
 
-    const [localPacients, setLocalPacients] = useState(props.listPacients);
+    const titleString = "Para que serve este formulário"
 
-    function print(){
+
+
+    const [localPacients, setLocalPacients] = useState(props.listPacients);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    function setModalState() {
+        setModalOpen(!modalOpen);
+    }
+
+
+    function print() {
         window.print();
     }
-  
+
 
     function formatDate(date) {
         var newDate = new Date(date);
@@ -72,7 +83,7 @@ function TablePacients(props) {
                     <tr>
                         <th>CPF</th>
                         <th>Nome</th>
-                        <th>Genero</th>
+                        <th className='shit'>Genero</th>
                         <th>Data Nasc</th>
                         <th>Tutor</th>
                         <th>Logradouro</th>
@@ -91,7 +102,7 @@ function TablePacients(props) {
                                 <tr key={pacient.cpf}>
                                     <td>{pacient.cpf}</td>
                                     <td>{pacient.name}</td>
-                                    <td>{pacient.sex}</td>
+                                    <td className='shit'>{pacient.sex}</td>
                                     <td>{formatDate(pacient.birthDate)}</td>
                                     <td>{pacient.responsable}</td>
                                     <td>{pacient.address}</td>
@@ -129,8 +140,7 @@ function TablePacients(props) {
                                             </svg>
                                         </Button>
                                         {'  '}
-                                        <ModalCustom pacient={pacient}/>
-
+                                        <ModalCustom pacient={pacient} />
                                     </td>
 
                                 </tr>
@@ -140,9 +150,14 @@ function TablePacients(props) {
                 </tbody>
             </Table>
             <Container className='d-flex justify-content-end gap-2 mb-3'>
-                <Button id='btn' onClick={props.changeScreen}>Cadastrar</Button>
-                {' '}
                 <Button id='btn' onClick={print}>Imprimir</Button>
+                {' '}
+                <Button className='btn btn-info text-light' onClick={setModalState}>Ajuda</Button>
+                {' '}
+                <HelpModal isOpen={modalOpen} onClose={setModalState} title={titleString} />
+                {' '}
+                <Button id='btn' onClick={props.changeScreen}>Cadastrar</Button>
+
             </Container>
 
         </Container>

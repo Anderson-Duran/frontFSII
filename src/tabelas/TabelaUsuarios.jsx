@@ -4,11 +4,15 @@ import { Table, Button, Row, Container, Col, Form } from 'react-bootstrap';
 import { urlBase } from '../assets/definicoes';
 import '../templates/modal/style.css';
 import { AuthContext } from '../contextos/authContext.js';
+import HelpUserModal from '../templates/help/HelpUserModal.jsx';
 
+
+const titleString = "Para que serve este formulário";
 
 function TabelaUsuarios(props) {
   const [localUsuarios, setLocalUsuarios] = useState(props.listUsers);
   const { user } = useContext(AuthContext);
+  const [modalOpen, setModalOpen] = useState(false);
 
   function getCookie() {
     const cookies = document.cookie.split(';');
@@ -58,8 +62,15 @@ function TabelaUsuarios(props) {
     setLocalUsuarios(searchResult);
   }
 
+  function setModalState() {
+    setModalOpen(!modalOpen);
+  }
+  function print() {
+    window.print();
+  }
+
   return (
-    <Container id="table" className="m-0">
+    <Container id="" className="m-0">
       <Row className="mb-3">
         <Col>
           <Form.Control
@@ -77,7 +88,7 @@ function TabelaUsuarios(props) {
             <th>Name</th>
             <th>Email</th>
             <th>Administrador</th>
-            <th>Actions</th>
+            <th className='shit'>Actions</th>
           </tr>
         </thead>
         <tbody style={{ fontSize: 13 }}>
@@ -88,7 +99,7 @@ function TabelaUsuarios(props) {
                 <td>{usuario.name}</td>
                 <td>{usuario.email}</td>
                 <td>{usuario.isAdmin ? 'Sim' : 'Não'}</td>
-                <td>
+                <td id='btn'>
                   <Button
                     onClick={() => {
                       props.prepareUserToEdition(usuario);
@@ -97,7 +108,7 @@ function TabelaUsuarios(props) {
                   >
                     Editar
                   </Button>
-                  {' '}
+                  {'  '}
                   <Button
                     onClick={() => {
                       if (
@@ -118,8 +129,15 @@ function TabelaUsuarios(props) {
           })}
         </tbody>
       </Table>
-      <Container className="d-flex justify-content-end mb-3">
-        <Button onClick={props.changeScreen}>Cadastrar Usuário</Button>
+      <Container className="d-flex gap-3 justify-content-end mb-3 position-relative shit">
+        <Button id='btn'className='me-n5' onClick={print}>Imprimir</Button>
+        <HelpUserModal className='shit' isOpen={modalOpen} onClose={setModalState} title={titleString} />
+        <Button className='btn btn-info text-light shit' onClick={setModalState}>Ajuda</Button>
+        {'  '}
+        <Button className='me-5 shit' onClick={props.changeScreen}>Cadastrar Usuário</Button>
+        {''}
+
+
       </Container>
     </Container>
   );
